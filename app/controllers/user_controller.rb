@@ -8,6 +8,11 @@ class UserController < ApplicationController
     response = Net::HTTP.get(uri)
     result = JSON.parse(response)
     @result = result.map{|n| n["name"]}
+
+    commit_url = "https://api.github.com/repos/priyasahu/action_cable_chat_app/commits"
+    resp = RestClient.get(commit_url, headers={accept: 'application/vnd.github.v3+json'})
+    result = JSON.parse(resp)
+    @commits = result.map{|n| n["commit"]["message"]}
   end
 
 
